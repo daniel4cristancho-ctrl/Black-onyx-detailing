@@ -169,6 +169,7 @@ function initBookingForm() {
 
     // ── Disable button + update text ──
     submitBtn.disabled = true;
+    var originalBtnText = submitBtn.textContent;
     submitBtn.textContent = 'PROCESANDO RESERVA DE LUJO...';
 
     // ── Collect form data ──
@@ -218,6 +219,7 @@ function initBookingForm() {
         if (retries > 0) {
           setTimeout(function () { attemptEmailJS(retries - 1); }, 400);
         } else {
+          resetSubmitBtn();
           onEmailError(new Error('EmailJS library failed to load. Please try again or call us directly.'));
         }
         return;
@@ -225,18 +227,41 @@ function initBookingForm() {
 
       var serviceId = 'black_onyx_service';
 
-      // ── Email 1: Notify the business ──
-      emailjs.sendForm(serviceId, 'bo_nueva_reserva', form)
+      // Estructura limpia de variables mapeadas para tus plantillas
+      var templateParams = {
+        first_name:      firstName,
+        last_name:       lastName,
+        phone:           phone,
+        email:           email,
+        address:         address,
+        vehicle_type:    vehicleType,
+        service_package: servicePackage,
+        preferred_date:  preferredDate,
+        addons:          addonsValue,
+        notes:           notes
+      };
+
+      // ── Email 1: Notify the business (Black Onyx) ──
+      emailjs.send(serviceId, 'bo_nueva_reserva', templateParams)
         .then(function () {
           // ── Email 2: Confirm to client ──
-          return emailjs.sendForm(serviceId, 'bo_confirmacion', form);
+          return emailjs.send(serviceId, 'bo_confirmacion', templateParams);
         })
         .then(function () {
+          resetSubmitBtn();
           onEmailSuccess();
         })
         .catch(function (err) {
+          resetSubmitBtn();
           onEmailError(err);
         });
+    }
+
+    function resetSubmitBtn() {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
     }
 
     attemptEmailJS(10);
