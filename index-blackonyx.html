@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Black Onyx Premium Detailing — Elite mobile auto detailing serving Charleston, Summerville & surrounding areas. Book online. (854) 273-4916." />
+  <title>Black Onyx Premium Detailing | Charleston, SC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0a0a0a;
+      --black2:   #111111;
+      --black3:   #181818;
+      --card:     #141414;
+      --border:   #2a2a2a;
+      --red:      #c0001a;
+      --red-dark: #8b0012;
+      --red-glow: rgba(192,0,26,0.25);
+      --silver:   #d4d4d4;
+      --white:    #f5f5f5;
+      --muted:    #888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-head:    'Rajdhani', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 30px rgba(192,0,26,0.15); }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: .12em;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo span.accent { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--silver);
+      text-decoration: none;
+      font-family: var(--font-head);
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff !important;
+      padding: 9px 22px;
+      border-radius: 2px;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--red-dark) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: .3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 20px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, rgba(192,0,26,0.18) 0%, transparent 70%),
+        linear-gradient(180deg, #0a0a0a 0%, #111 40%, #0d0d0d 100%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(192,0,26,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192,0,26,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      line-height: .95;
+      letter-spacing: .04em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .hero-title .red { color: var(--red); }
+    .hero-title .block { display: block; }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      letter-spacing: .25em;
+      color: var(--silver);
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      padding: 15px 36px;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 0 0 0 var(--red-glow);
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--red-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--silver);
+      padding: 14px 34px;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--red); color: var(--white); }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--red);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 100px 20px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-eye {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .section-eye::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      letter-spacing: .04em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .section-title em { color: var(--red); font-style: normal; }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: .97rem;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ── PACKAGES ── */
+    #packages { background: var(--black2); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .pkg-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 32px;
+      position: relative;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .pkg-card:hover {
+      border-color: var(--red);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(192,0,26,0.18);
+    }
+    .pkg-card.featured {
+      border-color: var(--red);
+      background: linear-gradient(160deg, #1a0a0c 0%, var(--card) 60%);
+    }
+
+    .pkg-badge {
+      position: absolute;
+      top: -12px;
+      left: 32px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 2px;
+    }
+
+    .pkg-number {
+      font-family: var(--font-display);
+      font-size: .85rem;
+      color: var(--red);
+      letter-spacing: .2em;
+      margin-bottom: 8px;
+    }
+
+    .pkg-name {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      letter-spacing: .05em;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .pkg-tagline {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .pkg-duration {
+      font-family: var(--font-head);
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: .1em;
+      margin-bottom: 24px;
+    }
+
+    .pkg-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+      margin-bottom: 24px;
+    }
+
+    .pkg-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 28px;
+    }
+    .pkg-features li {
+      font-size: .85rem;
+      color: var(--silver);
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      line-height: 1.45;
+    }
+    .pkg-features li::before {
+      content: '—';
+      color: var(--red);
+      flex-shrink: 0;
+      font-size: .7rem;
+      margin-top: 3px;
+    }
+
+    .pkg-pricing {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .pkg-pricing-label {
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .pkg-price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .pkg-price-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: .82rem;
+    }
+    .pkg-price-item .vehicle { color: var(--muted); }
+    .pkg-price-item .price { color: var(--white); font-weight: 600; }
+
+    /* ── ADD-ONS ── */
+    #addons { background: var(--black); }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .addon-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px 22px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      user-select: none;
+    }
+    .addon-card:hover { border-color: rgba(192,0,26,0.5); }
+    .addon-card.selected {
+      border-color: var(--red);
+      background: linear-gradient(135deg, rgba(192,0,26,0.08), var(--card));
+    }
+
+    .addon-name {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .addon-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .addon-price {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--red);
+    }
+    .addon-check {
+      float: right;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      color: var(--red);
+      transition: background .2s, border-color .2s;
+    }
+    .addon-card.selected .addon-check {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    /* ── BOOKING ── */
+    #booking { background: var(--black2); }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .booking-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: .06em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .info-block {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(192,0,26,0.12);
+      border: 1px solid rgba(192,0,26,0.3);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .info-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 3px;
+    }
+    .info-text span, .info-text a {
+      font-size: .85rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .info-text a:hover { color: var(--red); }
+
+    .hours-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .hours-block h4 {
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .82rem;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row strong { color: var(--silver); }
+
+    /* ── FORM ── */
+    #booking-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 8px;
+    }
+    .form-group label .req { color: var(--red); margin-left: 2px; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--black3);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: .92rem;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #444; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(192,0,26,0.12);
+    }
+    .form-group input:invalid:not(:placeholder-shown) {
+      border-color: #e53e3e;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .form-group select option { background: var(--black2); color: var(--white); }
+
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .vehicle-btn {
+      background: var(--black3);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      color: var(--muted);
+      font-size: .75rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+    .vehicle-btn .veh-icon { display: block; font-size: 1.4rem; margin-bottom: 5px; }
+    .vehicle-btn:hover { border-color: rgba(192,0,26,0.5); color: var(--silver); }
+    .vehicle-btn.active {
+      border-color: var(--red);
+      background: rgba(192,0,26,0.1);
+      color: var(--white);
+    }
+    input[name="vehicle_type"] { display: none; }
+
+    .selected-addons-display {
+      background: var(--black3);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-size: .82rem;
+      color: var(--muted);
+      min-height: 44px;
+    }
+    .selected-addons-display.has-items { color: var(--silver); }
+
+    #submit-btn {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      padding: 16px;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      margin-top: 8px;
+    }
+    #submit-btn:hover:not(:disabled) {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(192,0,26,0.3);
+    }
+    #submit-btn:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    /* ── PROCESS ── */
+    #process { background: var(--black); }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+    }
+
+    .process-step {
+      background: var(--card);
+      padding: 36px 28px;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: rgba(192,0,26,0.12);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── STANDARD ── */
+    #standard {
+      background: linear-gradient(160deg, #0f0305 0%, var(--black2) 100%);
+      border-top: 1px solid rgba(192,0,26,0.15);
+      border-bottom: 1px solid rgba(192,0,26,0.15);
+    }
+
+    .standard-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .standard-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      letter-spacing: .04em;
+      color: var(--silver);
+      line-height: 1.25;
+      margin-top: 24px;
+      padding-left: 20px;
+      border-left: 3px solid var(--red);
+    }
+
+    .standard-points {
+      list-style: none;
+      margin-top: 32px;
+    }
+    .standard-points li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+      color: var(--silver);
+      line-height: 1.5;
+    }
+    .standard-points li::before {
+      content: '●';
+      color: var(--red);
+      font-size: .45rem;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--black2); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: border-color .2s;
+    }
+    .contact-card:hover { border-color: rgba(192,0,26,0.4); }
+    .contact-icon {
+      font-size: 1.4rem;
+      width: 48px;
+      height: 48px;
+      background: rgba(192,0,26,0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card h4 {
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .contact-card a, .contact-card p {
+      font-size: .95rem;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+    }
+    .contact-card a:hover { color: var(--red); }
+
+    .service-area {
+      margin-top: 40px;
+    }
+    .service-area h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: .06em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .area-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 2px;
+      font-size: .78rem;
+      color: var(--muted);
+      font-family: var(--font-head);
+      font-weight: 600;
+      letter-spacing: .08em;
+    }
+    .area-note {
+      margin-top: 14px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: .1em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      list-style: none;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--font-head);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--red); }
+    .footer-copy {
+      font-size: .75rem;
+      color: #555;
+    }
+
+    /* ── SUCCESS MODAL ── */
+    #success-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #success-modal.active { display: flex; }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-box {
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+      border: 1px solid var(--red);
+      border-radius: 6px;
+      padding: 52px 44px;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 0 80px rgba(192,0,26,0.25);
+      animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(.88) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(192,0,26,0.1);
+      border: 1px solid var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 24px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: .06em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .modal-body {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .modal-body strong { color: var(--silver); }
+
+    .modal-close {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 13px 36px;
+      font-family: var(--font-head);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: var(--red-dark); }
+
+    /* ── MOBILE NAV MENU ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.98);
+      border-bottom: 1px solid var(--border);
+      z-index: 999;
+      padding: 20px;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      color: var(--silver);
+      text-decoration: none;
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      border-radius: 2px;
+      transition: background .15s, color .15s;
+    }
+    .mobile-nav a:hover { background: rgba(192,0,26,0.1); color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .booking-layout { grid-template-columns: 1fr; gap: 40px; }
+      .standard-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      #booking-form { padding: 28px 22px; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 70px 16px; }
+      .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
+      .pkg-price-grid { grid-template-columns: 1fr; }
+      .modal-box { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#" class="nav-logo">
+      BLACK <span class="accent">&nbsp;ONYX</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#packages">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#booking" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#packages" onclick="closeMobileNav()">Services</a>
+    <a href="#process" onclick="closeMobileNav()">How It Works</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a href="#booking" onclick="closeMobileNav()" style="color:var(--red)">Book Now →</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Premium Mobile Detailing — Charleston, SC</div>
+      <h1 class="hero-title">
+        <span class="block">YOUR VEHICLE.</span>
+        <span class="block red">FLAWLESS.</span>
+        <span class="block">AT YOUR DOOR.</span>
+      </h1>
+      <p class="hero-subtitle">Black Onyx Premium Detailing</p>
+      <p class="hero-desc">Elite mobile auto detailing delivered to your home or office. Professional-grade results, zero compromise — serving the Greater Charleston area.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-primary">Reserve Your Detail</a>
+        <a href="#packages" class="btn-ghost">View Packages & Pricing</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Mobile Service</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Signature Packages</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">30mi</div>
+          <div class="stat-label">Service Radius</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Quality Standard</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="container">
+      <div class="section-eye">Signature Packages</div>
+      <h2 class="section-title">Three levels of <em>excellence</em></h2>
+      <p class="section-sub">Every package is a complete transformation. Select your level and book directly below — we bring everything to you.</p>
+
+      <div class="packages-grid">
+
+        <!-- PKG 01 -->
+        <div class="pkg-card">
+          <div class="pkg-number">PACKAGE 01</div>
+          <div class="pkg-name">Essential Maintenance</div>
+          <div class="pkg-tagline">The foundation of a clean, protected vehicle</div>
+          <div class="pkg-duration">2 – 3 hours</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>Pre-wash foam treatment to loosen surface contaminants</li>
+            <li>Multi-step contact hand wash — full exterior</li>
+            <li>Wheels and rims deep hand cleaning</li>
+            <li>Wheel wells rinse and dress</li>
+            <li>Door jambs and fuel door wipe-down</li>
+            <li>Satin tire finish and protective dressing</li>
+            <li>Exterior trim wipe and dress</li>
+            <li>Streak-free exterior glass cleaning</li>
+            <li>Full interior deep vacuum — seats, carpet, trunk</li>
+            <li>Dashboard, vents, and console wipe-down</li>
+            <li>Door panels and storage pockets cleaning</li>
+            <li>Interior glass streak-free cleaning</li>
+          </ul>
+          <div class="pkg-pricing">
+            <div class="pkg-pricing-label">Starting price by vehicle</div>
+            <div class="pkg-price-grid">
+              <div class="pkg-price-item"><span class="vehicle">Coupe</span><span class="price">$160</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Sedan</span><span class="price">$175</span></div>
+              <div class="pkg-price-item"><span class="vehicle">SUV</span><span class="price">$200</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$230</span></div>
+            </div>
+          </div>
+          <a href="#booking" class="btn-ghost" style="text-align:center;display:block;">Select Package →</a>
+        </div>
+
+        <!-- PKG 02 -->
+        <div class="pkg-card featured">
+          <div class="pkg-badge">Most Popular</div>
+          <div class="pkg-number">PACKAGE 02</div>
+          <div class="pkg-name">Onyx Restoration</div>
+          <div class="pkg-tagline">Deep revival — inside and out</div>
+          <div class="pkg-duration">3 – 4 hours</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>Heavy grime pre-wash foam cannon treatment</li>
+            <li>Multi-step full exterior contact hand wash</li>
+            <li>Wheels, tires, and wheel wells deep detail and dress</li>
+            <li>Door jambs and fuel door full wipe-down</li>
+            <li>Satin tire dressing and exterior trim protection</li>
+            <li>Liquid wax hand application — 1 to 2 months paint protection</li>
+            <li>Streak-free exterior glass cleaning</li>
+            <li>Full interior deep vacuum — all seats, carpet, and trunk</li>
+            <li>Steam cleaning of console, dashboard, pedals, and vents</li>
+            <li>Leather and fabric conditioning with UV protection</li>
+            <li>UV protection barrier applied to all interior plastics and trim</li>
+            <li>Door panels, pockets, and handles detail clean</li>
+            <li>Interior glass streak-free cleaning</li>
+            <li>Trunk and cargo area deep vacuum and wipe-down</li>
+          </ul>
+          <div class="pkg-pricing">
+            <div class="pkg-pricing-label">Starting price by vehicle</div>
+            <div class="pkg-price-grid">
+              <div class="pkg-price-item"><span class="vehicle">Coupe</span><span class="price">$230</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Sedan</span><span class="price">$265</span></div>
+              <div class="pkg-price-item"><span class="vehicle">SUV</span><span class="price">$300</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$335</span></div>
+            </div>
+          </div>
+          <a href="#booking" class="btn-primary" style="text-align:center;display:block;">Select Package →</a>
+        </div>
+
+        <!-- PKG 03 -->
+        <div class="pkg-card">
+          <div class="pkg-badge" style="background:linear-gradient(90deg,#8b0012,#c0001a);">Premium</div>
+          <div class="pkg-number">PACKAGE 03 — PREMIUM</div>
+          <div class="pkg-name">Onyx Signature Protection</div>
+          <div class="pkg-tagline">The ultimate showroom-ready finish</div>
+          <div class="pkg-duration">5 – 6 hours</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>Full exterior decontamination pre-wash and foam cannon treatment</li>
+            <li>Multi-step professional contact hand wash</li>
+            <li>Wheels, tires, and wheel wells deep detail and dress</li>
+            <li>Door jambs and fuel door full detail</li>
+            <li>Clay bar treatment — complete paint decontamination</li>
+            <li>Professional paint gloss enhancement and correction prep</li>
+            <li>6-month durable paint sealant — UV shield and hydrophobic water repellent</li>
+            <li>Streak-free exterior glass cleaning — interior and exterior</li>
+            <li>Engine bay professional degreasing and detail clean</li>
+            <li>Full interior hot-water extraction — all carpet and floor mats</li>
+            <li>Steam cleaning of all seats, console, dashboard, vents, and pedals</li>
+            <li>Advanced odor neutralization treatment</li>
+            <li>Intensive leather conditioning with UV protection</li>
+            <li>UV protection barrier on all interior plastics, panels, and trim</li>
+            <li>Door panels, handles, pockets, and trunk full detail</li>
+          </ul>
+          <div class="pkg-pricing">
+            <div class="pkg-pricing-label">Starting price by vehicle</div>
+            <div class="pkg-price-grid">
+              <div class="pkg-price-item"><span class="vehicle">Coupe</span><span class="price">$330</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Sedan</span><span class="price">$360</span></div>
+              <div class="pkg-price-item"><span class="vehicle">SUV</span><span class="price">$400</span></div>
+              <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$450</span></div>
+            </div>
+          </div>
+          <a href="#booking" class="btn-ghost" style="text-align:center;display:block;">Select Package →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD-ONS -->
+  <section id="addons">
+    <div class="container">
+      <div class="section-eye">Enhancements</div>
+      <h2 class="section-title">Add-On <em>Services</em></h2>
+      <p class="section-sub">Click to select any add-ons. They will be included automatically in your booking below.</p>
+
+      <div class="addons-grid" id="addons-grid">
+
+        <div class="addon-card" data-addon="Pet Hair Removal ($40–$70)">
+          <div class="addon-check" id="check-0">✓</div>
+          <div class="addon-name">Pet Hair Removal</div>
+          <div class="addon-desc">Deep extraction of embedded pet hair from seats, carpet and trunk.</div>
+          <div class="addon-price">$40 – $70</div>
+        </div>
+
+        <div class="addon-card" data-addon="Engine Bay Cleaning ($80)">
+          <div class="addon-check" id="check-1">✓</div>
+          <div class="addon-name">Engine Bay Cleaning</div>
+          <div class="addon-desc">Professional degreasing and full engine compartment detailing.</div>
+          <div class="addon-price">$80</div>
+        </div>
+
+        <div class="addon-card" data-addon="Headlight Restoration ($130)">
+          <div class="addon-check" id="check-2">✓</div>
+          <div class="addon-name">Headlight Restoration</div>
+          <div class="addon-desc">Removes oxidation and yellowing, restoring full clarity and brightness.</div>
+          <div class="addon-price">$130</div>
+        </div>
+
+        <div class="addon-card" data-addon="Paint Correction ($350)">
+          <div class="addon-check" id="check-3">✓</div>
+          <div class="addon-name">Paint Correction</div>
+          <div class="addon-desc">Machine polish removing swirl marks. Carnauba & grape seed wax. 6–12 months UV protection.</div>
+          <div class="addon-price">$350</div>
+        </div>
+
+        <div class="addon-card" data-addon="Odor Elimination">
+          <div class="addon-check" id="check-4">✓</div>
+          <div class="addon-name">Odor Elimination</div>
+          <div class="addon-desc">Advanced neutralization of smoke, pet, and persistent interior odors.</div>
+          <div class="addon-price">Included in select packages</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="container">
+      <div class="section-eye">Reserve Your Detail</div>
+      <h2 class="section-title">Book in <em>minutes.</em> We confirm same day.</h2>
+      <p class="section-sub">Your slot is locked the moment you confirm. Real-time availability — no double bookings possible.</p>
+
+      <div class="booking-layout">
+
+        <!-- INFO SIDE -->
+        <div class="booking-info">
+          <h3>We come to <em style="color:var(--red);font-style:normal;">you.</em></h3>
+          <p style="font-size:.88rem;color:var(--muted);margin-bottom:28px;line-height:1.7;">Black Onyx is 100% mobile. We arrive fully equipped at your home, office, or any location within 30 miles of Summerville, SC.</p>
+
+          <div class="info-block">
+            <div class="info-icon">✆</div>
+            <div class="info-text">
+              <strong>Phone & Text</strong>
+              <a href="tel:8542734916">(854) 273-4916</a>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">✉</div>
+            <div class="info-text">
+              <strong>Email</strong>
+              <a href="mailto:blackonyxpremium@gmail.com">blackonyxpremium@gmail.com</a>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div class="info-text">
+              <strong>Service Area</strong>
+              <span>Summerville · Charleston · Goose Creek · North Charleston · 30-mile radius</span>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📷</div>
+            <div class="info-text">
+              <strong>Instagram</strong>
+              <a href="https://www.instagram.com/Blackonyxpremiumdetailing" target="_blank" rel="noopener">@Blackonyxpremiumdetailing</a>
+            </div>
+          </div>
+
+          <div class="hours-block">
+            <h4>Business Hours</h4>
+            <div class="hours-row"><strong>Monday — Friday</strong><span>8:00 AM – 7:00 PM</span></div>
+            <div class="hours-row"><strong>Saturday — Sunday</strong><span>7:00 AM – 5:00 PM</span></div>
+            <div class="hours-row" style="padding-top:10px;font-size:.75rem;color:#555;border:none;">First appointment: 8:00 AM · Last booking accepted: 4:00 PM</div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <form id="booking-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first_name">First Name <span class="req">*</span></label>
+              <input type="text" id="first_name" name="first_name" placeholder="John" required minlength="2" />
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name <span class="req">*</span></label>
+              <input type="text" id="last_name" name="last_name" placeholder="Smith" required minlength="2" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" required pattern="[\d\s\(\)\-\+]{7,20}" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address <span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="john@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Service Address <span class="req">*</span></label>
+            <input type="text" id="address" name="address" placeholder="123 Main St, Summerville, SC 29483" required minlength="8" />
+          </div>
+
+          <div class="form-group">
+            <label>Vehicle Type <span class="req">*</span></label>
+            <div class="vehicle-grid" id="vehicle-grid">
+              <button type="button" class="vehicle-btn" data-vehicle="Coupe">
+                <span class="veh-icon">🏎</span>Coupe
+              </button>
+              <button type="button" class="vehicle-btn" data-vehicle="Sedan">
+                <span class="veh-icon">🚘</span>Sedan
+              </button>
+              <button type="button" class="vehicle-btn" data-vehicle="SUV">
+                <span class="veh-icon">🚙</span>SUV
+              </button>
+              <button type="button" class="vehicle-btn" data-vehicle="Truck">
+                <span class="veh-icon">🛻</span>Truck
+              </button>
+            </div>
+            <input type="hidden" name="vehicle_type" id="vehicle_type" required />
+          </div>
+
+          <div class="form-group">
+            <label for="service_package">Service Package <span class="req">*</span></label>
+            <select id="service_package" name="service_package" required>
+              <option value="" disabled selected>Select a package</option>
+              <option value="Package 01 — Essential Maintenance ($160–$230)">Package 01 — Essential Maintenance ($160–$230)</option>
+              <option value="Package 02 — Onyx Restoration ($230–$335)">Package 02 — Onyx Restoration ($230–$335)</option>
+              <option value="Package 03 — Onyx Signature Protection ($330–$450)">Package 03 — Onyx Signature Protection ($330–$450)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="preferred_date">Preferred Date <span class="req">*</span></label>
+            <input type="date" id="preferred_date" name="preferred_date" required />
+          </div>
+
+          <div class="form-group">
+            <label>Add-On Services Selected</label>
+            <div class="selected-addons-display" id="selected-addons-display">None selected — select above before booking.</div>
+            <input type="hidden" name="addons" id="addons-hidden" value="None" />
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Any specific requests, vehicle details, or access instructions..."></textarea>
+          </div>
+
+          <input type="hidden" name="to_name" value="Black Onyx Premium Detailing" />
+
+          <button type="submit" id="submit-btn">Confirm Booking — Lock My Slot</button>
+          <p class="form-note">We confirm within 2 hours by call or text · (854) 273-4916</p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <div class="section-eye">How It Works</div>
+      <h2 class="section-title">Simple. <em>Precise.</em> Professional.</h2>
+      <p class="section-sub" style="margin-bottom:44px;">From booking to the final walkthrough — effortless on your end, relentless on ours.</p>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-title">Choose Your Package</div>
+          <p class="step-desc">Select from our three signature packages, add any enhancements, and pick your date and time. Your slot is locked the moment you confirm.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-title">We Arrive On Time</div>
+          <p class="step-desc">Our fully-equipped team comes to your location with professional-grade tools. No facility visit, no waiting rooms, no disruption to your day.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-title">Precision Work</div>
+          <p class="step-desc">Every detail is executed to the same standard — methodical, thorough, and precise. We treat every vehicle as if it were our own.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div class="step-title">Your Approval</div>
+          <p class="step-desc">We walk you through the result. If anything does not meet your expectations, we make it right — no questions asked.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARD -->
+  <section id="standard">
+    <div class="container">
+      <div class="standard-layout">
+        <div>
+          <div class="section-eye">Our Standard</div>
+          <h2 class="section-title">Water-based products.<br><em>A different level.</em></h2>
+          <p class="standard-quote">"We do not just clean cars. We restore them to the standard they were built for."</p>
+        </div>
+        <div>
+          <p style="color:var(--muted);font-size:.95rem;line-height:1.75;margin-bottom:20px;">We exclusively use water-based dressings on all black trim, tires, and plastics. Oil-based products attract dust and leave a greasy residue within days. Ours dry to the touch.</p>
+          <p style="color:var(--muted);font-size:.95rem;line-height:1.75;margin-bottom:24px;">Your vehicle stays cleaner longer — with a natural, factory-fresh appearance that actively repels dust, dirt, and moisture. That is the Black Onyx difference.</p>
+          <ul class="standard-points">
+            <li>Premium water-based dressings on all surfaces — never greasy, never dull</li>
+            <li>Fully insured mobile service — your property is always protected</li>
+            <li>Professional-grade equipment on every appointment</li>
+            <li>Serving Summerville, Charleston & 30-mile radius</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-eye">Get In Touch</div>
+      <h2 class="section-title">Ready when <em>you are.</em></h2>
+      <p class="section-sub">Call, text, or book online. We respond same day.</p>
+
+      <div class="contact-layout">
+        <div>
+          <div class="contact-card" style="margin-bottom:16px;">
+            <div class="contact-icon">✆</div>
+            <div>
+              <h4>Phone & Text</h4>
+              <a href="tel:8542734916">(854) 273-4916</a>
+            </div>
+          </div>
+          <div class="contact-card" style="margin-bottom:16px;">
+            <div class="contact-icon">✉</div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:blackonyxpremium@gmail.com">blackonyxpremium@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📷</div>
+            <div>
+              <h4>Instagram</h4>
+              <a href="https://www.instagram.com/Blackonyxpremiumdetailing" target="_blank" rel="noopener">@Blackonyxpremiumdetailing</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="service-area">
+            <h3>Service Area — <span style="color:var(--red);">Greater Charleston</span></h3>
+            <div class="area-tags">
+              <span class="area-tag">Summerville</span>
+              <span class="area-tag">Charleston</span>
+              <span class="area-tag">Goose Creek</span>
+              <span class="area-tag">North Charleston</span>
+              <span class="area-tag">Mount Pleasant</span>
+              <span class="area-tag">Ladson</span>
+              <span class="area-tag">Hanahan</span>
+              <span class="area-tag">West Ashley</span>
+              <span class="area-tag">James Island</span>
+              <span class="area-tag">Johns Island</span>
+            </div>
+            <p class="area-note">Not on this list? Call us. If you are within 30 miles of Summerville, we serve you.</p>
+          </div>
+          <div style="margin-top:36px;text-align:center;">
+            <a href="#booking" class="btn-primary">Book Your Detail Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">BLACK <span>ONYX</span></div>
+    <ul class="footer-links">
+      <li><a href="#packages">Services</a></li>
+      <li><a href="#booking">Book</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Black Onyx Premium Detailing · Summerville, SC</p>
+  </footer>
+
+  <!-- SUCCESS MODAL -->
+  <div id="success-modal">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-box">
+      <div class="modal-icon">✓</div>
+      <div class="modal-title">BOOKING CONFIRMED</div>
+      <p class="modal-body">
+        Your slot is locked. We will contact you within <strong>2 hours</strong> by call or text to confirm all details.<br><br>
+        <strong>(854) 273-4916</strong>
+      </p>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
