@@ -148,7 +148,7 @@
 
     .hero-content {
       position: relative;
-      z-index: 2;
+ z-index: 2;
       text-align: center;
       max-width: 900px;
     }
@@ -1065,7 +1065,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav id="main-nav">
     <a href="#" class="nav-logo">
       BLACK <span class="accent">&nbsp;ONYX</span>
@@ -1081,7 +1080,6 @@
     </button>
   </nav>
 
-  <!-- MOBILE NAV -->
   <div class="mobile-nav" id="mobile-nav">
     <a href="#packages" onclick="closeMobileNav()">Services</a>
     <a href="#process" onclick="closeMobileNav()">How It Works</a>
@@ -1089,7 +1087,6 @@
     <a href="#booking" onclick="closeMobileNav()" style="color:var(--red)">Book Now →</a>
   </div>
 
-  <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
@@ -1127,7 +1124,6 @@
     </div>
   </section>
 
-  <!-- PACKAGES -->
   <section id="packages">
     <div class="container">
       <div class="section-eye">Signature Packages</div>
@@ -1136,7 +1132,6 @@
 
       <div class="packages-grid">
 
-        <!-- PKG 01 -->
         <div class="pkg-card">
           <div class="pkg-number">PACKAGE 01</div>
           <div class="pkg-name">Essential Maintenance</div>
@@ -1169,7 +1164,6 @@
           <a href="#booking" class="btn-ghost" style="text-align:center;display:block;">Select Package →</a>
         </div>
 
-        <!-- PKG 02 -->
         <div class="pkg-card featured">
           <div class="pkg-badge">Most Popular</div>
           <div class="pkg-number">PACKAGE 02</div>
@@ -1205,7 +1199,6 @@
           <a href="#booking" class="btn-primary" style="text-align:center;display:block;">Select Package →</a>
         </div>
 
-        <!-- PKG 03 -->
         <div class="pkg-card">
           <div class="pkg-badge" style="background:linear-gradient(90deg,#8b0012,#c0001a);">Premium</div>
           <div class="pkg-number">PACKAGE 03 — PREMIUM</div>
@@ -1246,7 +1239,6 @@
     </div>
   </section>
 
-  <!-- ADD-ONS -->
   <section id="addons">
     <div class="container">
       <div class="section-eye">Enhancements</div>
@@ -1294,7 +1286,6 @@
     </div>
   </section>
 
-  <!-- BOOKING -->
   <section id="booking">
     <div class="container">
       <div class="section-eye">Reserve Your Detail</div>
@@ -1303,7 +1294,6 @@
 
       <div class="booking-layout">
 
-        <!-- INFO SIDE -->
         <div class="booking-info">
           <h3>We come to <em style="color:var(--red);font-style:normal;">you.</em></h3>
           <p style="font-size:.88rem;color:var(--muted);margin-bottom:28px;line-height:1.7;">Black Onyx is 100% mobile. We arrive fully equipped at your home, office, or any location within 30 miles of Summerville, SC.</p>
@@ -1345,7 +1335,6 @@
           </div>
         </div>
 
-        <!-- FORM -->
         <form id="booking-form" novalidate>
           <div class="form-row">
             <div class="form-group">
@@ -1388,7 +1377,7 @@
               </button>
               <button type="button" class="vehicle-btn" data-vehicle="Truck">
                 <span class="veh-icon">🛻</span>Truck
-              <button id="submit-btn" type="submit" class="btn btn-primary btn-block">CONFIRM BOOKING — LOCK MY SLOT</button>
+              </button>
             </div>
             <input type="hidden" name="vehicle_type" id="vehicle_type" required />
           </div>
@@ -1403,9 +1392,26 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="preferred_date">Preferred Date <span class="req">*</span></label>
-            <input type="date" id="preferred_date" name="preferred_date" required />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="preferred_date">Preferred Date <span class="req">*</span></label>
+              <input type="date" id="preferred_date" name="preferred_date" required />
+            </div>
+            <div class="form-group">
+              <label for="preferred_time">Preferred Time <span class="req">*</span></label>
+              <select id="preferred_time" name="preferred_time" required>
+                <option value="" disabled selected>Select a time</option>
+                <option value="08:00 AM">08:00 AM</option>
+                <option value="09:00 AM">09:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="01:00 PM">01:00 PM</option>
+                <option value="02:00 PM">02:00 PM</option>
+                <option value="03:00 PM">03:00 PM</option>
+                <option value="04:00 PM">04:00 PM (Last Slot)</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-group">
@@ -1429,7 +1435,6 @@
     </div>
   </section>
 
-  <!-- PROCESS -->
   <section id="process">
     <div class="container">
       <div class="section-eye">How It Works</div>
@@ -1461,7 +1466,6 @@
     </div>
   </section>
 
-  <!-- STANDARD -->
   <section id="standard">
     <div class="container">
       <div class="standard-layout">
@@ -1484,7 +1488,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="container">
       <div class="section-eye">Get In Touch</div>
@@ -1541,7 +1544,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">BLACK <span>ONYX</span></div>
     <ul class="footer-links">
@@ -1549,10 +1551,9 @@
       <li><a href="#booking">Book</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <p class="footer-copy">© 2025 Black Onyx Premium Detailing · Summerville, SC</p>
+    <p class="footer-copy">© 2026 Black Onyx Premium Detailing · Summerville, SC</p>
   </footer>
 
-  <!-- SUCCESS MODAL -->
   <div id="success-modal">
     <div class="modal-overlay" onclick="closeModal()"></div>
     <div class="modal-box">
