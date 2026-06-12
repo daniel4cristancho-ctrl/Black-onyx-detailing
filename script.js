@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 //  BLACK ONYX PREMIUM DETAILING — script.js
-//  EmailJS + Supabase integration
+//  EmailJS + Supabase integration — CORREGIDO
 // ─────────────────────────────────────────────
 
 // ── EMAILJS SDK ──────────────────────────────
@@ -227,8 +227,9 @@ function initBookingForm() {
 
       var serviceId = 'black_onyx_service';
 
-      // Estructura limpia de variables mapeadas para tus plantillas
+      // Parámetros corregidos con la propiedad to_email añadida para el cliente
       var templateParams = {
+        to_email:        email,        // <--- CORRECCIÓN CLAVE: Esto soluciona el envío al cliente
         first_name:      firstName,
         last_name:       lastName,
         phone:           phone,
