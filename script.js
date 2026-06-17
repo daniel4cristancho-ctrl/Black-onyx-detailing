@@ -3,22 +3,16 @@
 //  EmailJS + Supabase integration — CORREGIDO
 // ─────────────────────────────────────────────
 
-// ── EMAILJS SDK ──────────────────────────────
-(function () {
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-  script.onload = function () {
-    emailjs.init('-4Jac6_YMULEsfrPC');
-  };
-  document.head.appendChild(script);
-})();
-
-// ── SUPABASE SDK ─────────────────────────────
-(function () {
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-  document.head.appendChild(script);
-})();
+// ── EMAILJS INIT ──────────────────────────────
+// The EmailJS + Supabase SDKs are now loaded via <script> tags
+// in the <head> of index.html, BEFORE this file — so by the time
+// this runs, `emailjs` and `supabase` already exist on `window`.
+// This removes the old race condition where the dynamically
+// injected SDK sometimes hadn't loaded yet when the form submitted,
+// causing 0 requests to ever reach EmailJS.
+if (typeof emailjs !== 'undefined') {
+  emailjs.init('-4Jac6_YMULEsfrPC');
+}
 
 var supabaseClient = null;
 var SUPABASE_URL    = 'https://xafdtpmlyvgxowsadzxr.supabase.co';
@@ -66,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
   initVehicleButtons();
   initAddonCards();
   initBookingForm();
+  initPackageSelectButtons();
+  initScrollReveal();
+  initActiveNavLink();
 });
 
 function closeMobileNav() {
@@ -88,6 +85,46 @@ function initVehicleButtons() {
 }
 
 // ── ADD-ON CARDS ──────────────────────────────
+// ── "SELECT PACKAGE" BUTTONS (from #packages cards) ──
+// Instead of just jumping to #booking and forcing the user to
+// re-pick the package from the dropdown, this auto-fills the
+// Service Package select with the exact package they clicked,
+// flashes it so they see it was picked, then scrolls down.
+function initPackageSelectButtons() {
+  var buttons = document.querySelectorAll('.pkg-select-btn');
+  var select  = document.getElementById('service_package');
+
+  if (!buttons.length || !select) return;
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var pkgValue = btn.getAttribute('data-package');
+      if (!pkgValue) return;
+
+      // Make sure the value exists as an option before assigning
+      var match = Array.prototype.find.call(select.options, function (opt) {
+        return opt.value === pkgValue;
+      });
+
+      if (match) {
+        select.value = pkgValue;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+
+        // Visual confirmation flash
+        select.classList.remove('field-flash');
+        // Force reflow so the animation can re-trigger on repeat clicks
+        void select.offsetWidth;
+        select.classList.add('field-flash');
+        select.addEventListener('animationend', function handler() {
+          select.classList.remove('field-flash');
+          select.removeEventListener('animationend', handler);
+        });
+      }
+      // Native smooth-scroll to #booking still happens via the href="#booking"
+    });
+  });
+}
+
 var selectedAddons = [];
 
 function initAddonCards() {
@@ -181,6 +218,7 @@ function initBookingForm() {
     var vehicleType = document.getElementById('vehicle_type').value;
     var servicePackage = document.getElementById('service_package').value;
     var preferredDate  = document.getElementById('preferred_date').value;
+    var preferredTime  = document.getElementById('preferred_time').value;
     var addonsValue    = document.getElementById('addons-hidden').value;
     var notes          = document.getElementById('notes').value.trim();
 
@@ -198,6 +236,7 @@ function initBookingForm() {
           vehicle_type:    vehicleType,
           service_package: servicePackage,
           preferred_date:  preferredDate,
+          preferred_time:  preferredTime,
           addons:          addonsValue,
           notes:           notes,
           status:          'pending',
@@ -213,11 +252,13 @@ function initBookingForm() {
         });
     }
 
-    // ── Send to EmailJS — wait for SDK to load ──
+    // ── Send to EmailJS ──
+    // SDK is loaded via <script> tag in <head>, so it's ready by now.
+    // Keep one small safety retry in case of an unusually slow connection.
     function attemptEmailJS(retries) {
       if (typeof emailjs === 'undefined') {
         if (retries > 0) {
-          setTimeout(function () { attemptEmailJS(retries - 1); }, 400);
+          setTimeout(function () { attemptEmailJS(retries - 1); }, 500);
         } else {
           resetSubmitBtn();
           onEmailError(new Error('EmailJS library failed to load. Please try again or call us directly.'));
@@ -227,9 +268,8 @@ function initBookingForm() {
 
       var serviceId = 'black_onyx_service';
 
-      // Parámetros corregidos con la propiedad to_email añadida para el cliente
       var templateParams = {
-        to_email:        email,        // <--- CORRECCIÓN CLAVE: Esto soluciona el envío al cliente
+        to_email:        email,
         first_name:      firstName,
         last_name:       lastName,
         phone:           phone,
@@ -238,19 +278,28 @@ function initBookingForm() {
         vehicle_type:    vehicleType,
         service_package: servicePackage,
         preferred_date:  preferredDate,
+        booking_time:    preferredTime,
         addons:          addonsValue,
         notes:           notes
       };
 
-      // ── Email 1: Notify the business (Black Onyx) ──
+      // ── Email 1: Notify the business (Black Onyx) — CRITICAL ──
+      // This is the email that actually creates the booking on our end.
       emailjs.send(serviceId, 'bo_nueva_reserva', templateParams)
         .then(function () {
-          // ── Email 2: Confirm to client ──
-          return emailjs.send(serviceId, 'bo_confirmacion', templateParams);
-        })
-        .then(function () {
+          // Booking received by the business — treat as success
+          // regardless of what happens with the client confirmation below.
           resetSubmitBtn();
           onEmailSuccess();
+
+          // ── Email 2: Confirm to client — BEST EFFORT ──
+          // If this fails (e.g. template "To Email" misconfigured, or
+          // monthly send limit reached), do NOT show an error to the
+          // client — their booking already went through.
+          emailjs.send(serviceId, 'bo_confirmacion', templateParams)
+            .catch(function (err) {
+              console.warn('Client confirmation email failed (booking still registered):', err);
+            });
         })
         .catch(function (err) {
           resetSubmitBtn();
@@ -265,7 +314,7 @@ function initBookingForm() {
       }
     }
 
-    attemptEmailJS(10);
+    attemptEmailJS(4);
   });
 }
 
@@ -295,6 +344,67 @@ function onEmailSuccess() {
   showModal();
 }
 
+// ── SCROLL-REVEAL ANIMATIONS ──────────────────
+// Adds a subtle fade-up entrance to key sections/cards as the
+// user scrolls. Purely visual — never affects form logic.
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+
+  var selectors = [
+    '.pkg-card', '.addon-card', '.contact-card', '.process-step',
+    '.section-eye', '.section-title', '.section-sub',
+    '.hero-stats', '.service-area', '#booking-form', '.standard-layout > div'
+  ].join(',');
+
+  var els = document.querySelectorAll(selectors);
+
+  els.forEach(function (el, i) {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  });
+
+  var observer = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach(function (el) { observer.observe(el); });
+}
+
+// ── ACTIVE NAV LINK ON SCROLL ─────────────────
+// Highlights the current section's nav link in red as the
+// user scrolls through the page.
+function initActiveNavLink() {
+  if (!('IntersectionObserver' in window)) return;
+
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav a[href^="#"]');
+
+  if (!sections.length || !navLinks.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.getAttribute('id');
+
+      navLinks.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href === '#' + id) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+  }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
+
+  sections.forEach(function (sec) { observer.observe(sec); });
+}
+
 function onEmailError(err) {
   var submitBtn = document.getElementById('submit-btn');
   if (submitBtn) {
@@ -309,5 +419,5 @@ function onEmailError(err) {
   message += 'We apologize for the inconvenience.';
 
   alert(message);
-  console.error('EmailJS error:', err);
+  console.error('EmailJS error:', (err && (err.text || err.message)) ? (err.text || err.message) : err, err);
 }
