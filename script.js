@@ -290,7 +290,7 @@ function initBookingForm() {
           // Booking received by the business — treat as success
           // regardless of what happens with the client confirmation below.
           resetSubmitBtn();
-          onEmailSuccess();
+          onEmailSuccess(preferredDate, preferredTime);
 
           // ── Email 2: Confirm to client — BEST EFFORT ──
           // If this fails (e.g. template "To Email" misconfigured, or
@@ -318,9 +318,15 @@ function initBookingForm() {
   });
 }
 
-function onEmailSuccess() {
+function onEmailSuccess(confirmedDate, confirmedTime) {
   var form      = document.getElementById('booking-form');
   var submitBtn = document.getElementById('submit-btn');
+
+  // Inject confirmed date/time into modal before showing
+  var dateEl = document.getElementById('confirm-date');
+  var timeEl = document.getElementById('confirm-time');
+  if (dateEl) dateEl.textContent = confirmedDate || '—';
+  if (timeEl) timeEl.textContent = confirmedTime  || '—';
 
   if (form) form.reset();
 
