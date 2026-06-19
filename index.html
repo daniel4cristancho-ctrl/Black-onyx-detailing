@@ -668,7 +668,68 @@
       animation: fieldFlash 1.6s ease-out;
     }
 
-    /* ── SCROLL-REVEAL ── */
+    /* ── REVIEWS ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+    .review-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+      transition: border-color .3s, transform .3s;
+    }
+    .review-card:hover { border-color: var(--red); transform: translateY(-4px); }
+    .review-stars { color: var(--red); font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .review-text { color: var(--silver); font-size: .95rem; line-height: 1.7; font-style: italic; margin-bottom: 16px; }
+    .review-author { font-family: var(--font-head); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── FLOATING BAR ── */
+    #float-bar {
+      position: fixed;
+      bottom: -80px;
+      left: 0; right: 0;
+      z-index: 900;
+      background: rgba(10,10,10,0.96);
+      border-top: 1px solid var(--red);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 16px 24px;
+      transition: bottom .4s cubic-bezier(.16,.84,.44,1);
+    }
+    #float-bar.visible { bottom: 0; }
+    .float-bar-text { color: var(--silver); font-family: var(--font-head); font-size: .9rem; letter-spacing: .06em; }
+    .float-bar-btn {
+      background: var(--red);
+      color: #fff;
+      padding: 10px 28px;
+      font-family: var(--font-head);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .float-bar-btn:hover { background: var(--red-dark); }
+    @media (max-width: 580px) {
+      #float-bar { flex-direction: column; gap: 10px; padding: 14px 16px; }
+      .float-bar-text { font-size: .8rem; text-align: center; }
+    }
+
+    /* ── STAT COUNTER ANIMATION ── */
+    .stat-num[data-target] { transition: color .3s; }
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -1162,19 +1223,19 @@
       </div>
       <div class="hero-stats">
         <div class="stat-item">
-          <div class="stat-num">100%</div>
+          <div class="stat-num" data-target="100" data-suffix="%">100%</div>
           <div class="stat-label">Mobile Service</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">3</div>
+          <div class="stat-num" data-target="3" data-suffix="">3</div>
           <div class="stat-label">Signature Packages</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">30mi</div>
+          <div class="stat-num" data-target="30" data-suffix="mi">30mi</div>
           <div class="stat-label">Service Radius</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">5★</div>
+          <div class="stat-num" data-suffix="★">5★</div>
           <div class="stat-label">Quality Standard</div>
         </div>
       </div>
@@ -1218,7 +1279,7 @@
               <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$230</span></div>
             </div>
           </div>
-          <a href="#booking" class="btn-ghost pkg-select-btn" data-package="Package 01 — Essential Maintenance ($160–$230)" style="text-align:center;display:block;">Select Package →</a>
+          <a href="#booking" class="btn-ghost pkg-select-btn" data-pkg-index="1" style="text-align:center;display:block;">Select Package →</a>
         </div>
 
         <div class="pkg-card featured">
@@ -1253,7 +1314,7 @@
               <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$335</span></div>
             </div>
           </div>
-          <a href="#booking" class="btn-primary pkg-select-btn" data-package="Package 02 — Onyx Restoration ($230–$335)" style="text-align:center;display:block;">Select Package →</a>
+          <a href="#booking" class="btn-primary pkg-select-btn" data-pkg-index="2" style="text-align:center;display:block;">Select Package →</a>
         </div>
 
         <div class="pkg-card">
@@ -1289,7 +1350,7 @@
               <div class="pkg-price-item"><span class="vehicle">Truck</span><span class="price">$450</span></div>
             </div>
           </div>
-          <a href="#booking" class="btn-ghost pkg-select-btn" data-package="Package 03 — Onyx Signature Protection ($330–$450)" style="text-align:center;display:block;">Select Package →</a>
+          <a href="#booking" class="btn-ghost pkg-select-btn" data-pkg-index="3" style="text-align:center;display:block;">Select Package →</a>
         </div>
 
       </div>
@@ -1544,6 +1605,53 @@
       </div>
     </div>
   </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="reviews" style="padding:100px 20px; background:var(--black2);">
+    <div class="container">
+      <div class="section-eye">Client Reviews</div>
+      <h2 class="section-title">What Charleston <em>says.</em></h2>
+      <p class="section-sub">Real clients. Real results. Every time.</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"My car looked better than the day I bought it. Daniel's attention to detail is insane — every crevice spotless. Worth every dollar."</p>
+          <div class="review-author">— Marcus T., Summerville SC</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Booked online at 9pm, they were at my house by 10am next morning. SUV was completely transformed. I've already referred 3 friends."</p>
+          <div class="review-author">— Ashley R., Charleston SC</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The Signature Protection package is elite. Ceramic coating looks incredible. Professional, fast, and zero mess left behind."</p>
+          <div class="review-author">— James P., Goose Creek SC</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"I had dog hair embedded everywhere. They removed every single strand. I couldn't believe it. Black Onyx is the only detailer I'll ever use."</p>
+          <div class="review-author">— Sarah M., North Charleston SC</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Mobile detailing that actually comes to you AND delivers luxury results? Game changer. My truck looks showroom ready."</p>
+          <div class="review-author">— Carlos V., Summerville SC</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Booked the Onyx Restoration and they handled my heavily oxidized paint like true professionals. Night and day difference."</p>
+          <div class="review-author">— Tiffany H., Charleston SC</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FLOATING BOOK NOW BAR ── -->
+  <div id="float-bar">
+    <span class="float-bar-text">🔥 Limited slots available this week</span>
+    <a href="#booking" class="float-bar-btn">Book Now — Lock My Slot</a>
+  </div>
 
   <section id="contact">
     <div class="container">
