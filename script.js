@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
   initPackageSelectButtons();
   initScrollReveal();
   initActiveNavLink();
+  initStatCounters();
+  initFloatingBar();
 });
 
 function closeMobileNav() {
@@ -93,34 +95,24 @@ function initVehicleButtons() {
 function initPackageSelectButtons() {
   var buttons = document.querySelectorAll('.pkg-select-btn');
   var select  = document.getElementById('service_package');
-
   if (!buttons.length || !select) return;
 
   buttons.forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      var pkgValue = btn.getAttribute('data-package');
-      if (!pkgValue) return;
+    btn.addEventListener('click', function () {
+      var idx = parseInt(btn.getAttribute('data-pkg-index'), 10);
+      if (!idx || idx >= select.options.length) return;
 
-      // Make sure the value exists as an option before assigning
-      var match = Array.prototype.find.call(select.options, function (opt) {
-        return opt.value === pkgValue;
-      });
+      select.selectedIndex = idx;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
 
-      if (match) {
-        select.value = pkgValue;
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-
-        // Visual confirmation flash
+      // Flash the field red so user sees it was auto-filled
+      select.classList.remove('field-flash');
+      void select.offsetWidth;
+      select.classList.add('field-flash');
+      select.addEventListener('animationend', function h() {
         select.classList.remove('field-flash');
-        // Force reflow so the animation can re-trigger on repeat clicks
-        void select.offsetWidth;
-        select.classList.add('field-flash');
-        select.addEventListener('animationend', function handler() {
-          select.classList.remove('field-flash');
-          select.removeEventListener('animationend', handler);
-        });
-      }
-      // Native smooth-scroll to #booking still happens via the href="#booking"
+        select.removeEventListener('animationend', h);
+      });
     });
   });
 }
@@ -426,4 +418,54 @@ function onEmailError(err) {
 
   alert(message);
   console.error('EmailJS error:', (err && (err.text || err.message)) ? (err.text || err.message) : err, err);
+}
+
+// ── ANIMATED STAT COUNTERS ────────────────────
+function initStatCounters() {
+  if (!('IntersectionObserver' in window)) return;
+  var els = document.querySelectorAll('.stat-num[data-target]');
+  if (!els.length) return;
+
+  var observer = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el     = entry.target;
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start  = 0;
+      var dur    = 1800;
+      var step   = 16;
+      var steps  = dur / step;
+      var inc    = target / steps;
+      var current = 0;
+      var timer = setInterval(function () {
+        current += inc;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current) + suffix;
+      }, step);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+
+  els.forEach(function (el) { observer.observe(el); });
+}
+
+// ── FLOATING BOOK NOW BAR ─────────────────────
+function initFloatingBar() {
+  var bar  = document.getElementById('float-bar');
+  var hero = document.getElementById('hero');
+  if (!bar || !hero) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    if (!entries[0].isIntersecting) {
+      bar.classList.add('visible');
+    } else {
+      bar.classList.remove('visible');
+    }
+  }, { threshold: 0.1 });
+
+  observer.observe(hero);
 }
